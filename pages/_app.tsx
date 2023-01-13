@@ -35,13 +35,13 @@ function MyApp({ Component, pageProps }: AppProps) {
               display: flex;
               justify-content: center;
               flex-wrap: wrap;
-              margin-left: 14rem;
-              margin-right: 14rem;
+              padding-left: 14rem;
+              padding-right: 14rem;
               padding-top: 4rem;
               padding-bottom: 4rem;
               @media (max-width: 640px) {
-                padding-left: 4rem;
-                padding-right: 4rem;
+                padding-left: 2rem;
+                padding-right: 2rem;
                 width: 100%;
               }
             `}
@@ -82,7 +82,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     `}
                   >
                     <Image
-                      src="/profile_icon.jpg"
+                      src="/profile_icon.png"
                       alt="profile icon"
                       layout="fill"
                       objectFit="cover"

@@ -7,9 +7,9 @@ const CardLink = (props: { title: any; link: any; image: any }) => {
     <Link href={props.link}>
       <motion.a
         css={css`
+          width: 100%;
           border-radius: 0.25rem;
-          width: 35%;
-          padding: 50px 30px 50px 30px;
+          padding: 75px 45px;
           background: #f7f7f7;
           transition: all 0.5s 0s ease;
           &:hover {
@@ -25,6 +25,10 @@ const CardLink = (props: { title: any; link: any; image: any }) => {
             &:hover {
               background: #3c3c42;
             }
+          }
+          @media (min-width: 640px) {
+            width: 35%;
+            padding: 50px 30px;
           }
         `}
         initial={{ opacity: 0, y: 10 }} // 初期状態

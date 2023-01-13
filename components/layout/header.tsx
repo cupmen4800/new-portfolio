@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { css } from '@emotion/react';
-
+import { useState } from 'react';
+import { VscThreeBars } from 'react-icons/vsc';
+import { theme, darkTheme } from '../theme';
 const header = css`
   padding: 10px;
   display: flex;
@@ -10,6 +12,8 @@ const header = css`
   width: 690px;
   @media (max-width: 640px) {
     width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 `;
 
@@ -18,6 +22,9 @@ export const siteTitle = css`
   font-weight: 700;
   font-family: Montserrat Alternates, sans-serif;
   cursor: pointer;
+  @media (max-width: 640px) {
+    font-size: 2rem;
+  }
 `;
 
 const navLinkStyle = css`
@@ -51,7 +58,14 @@ const navLinkStyle = css`
   }
 `;
 
+const drawerLink = css`
+  font-size: 18px;
+  font-weight: 300;
+  padding: 5px 5px;
+`;
+
 const Header = () => {
+  const [drawerState, setDrawer] = useState(false);
   return (
     <header css={header}>
       <Link href="/">
@@ -90,6 +104,74 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+      <div
+        css={css`
+          @media (min-width: 200px) {
+            z-index: 9999;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            left: 0px;
+            &:hover .description3 {
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              top: 35px;
+              left: -180px;
+            }
+          }
+          @media (min-width: 640px) {
+            display: none;
+          }
+        `}
+      >
+        <button
+          css={css`
+            font-size: 1.2rem;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+          onClick={() => {
+            setDrawer(!drawerState);
+          }}
+        >
+          <VscThreeBars />
+        </button>
+        {drawerState ? (
+          <div
+            className="description3"
+            css={css`
+              display: none;
+              position: absolute;
+              padding: 10px;
+              font-size: 12px;
+              line-height: 1.6em;
+              color: #fff;
+              border-radius: 5px;
+              background: ${theme.colors.backgroundColor};
+              width: 200px;
+              @media (prefers-color-scheme: dark) {
+                background: #242427;
+              } ;
+            `}
+          >
+            <Link href="/">
+              <a css={drawerLink}>About</a>
+            </Link>
+            <Link href="/works">
+              <a css={drawerLink}>Works</a>
+            </Link>
+            <Link href="/resume">
+              <a css={drawerLink}>Resume</a>
+            </Link>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </header>
   );
 };

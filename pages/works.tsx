@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { css } from '@emotion/react';
 import CardLink from 'components/module/cardLink';
 import { motion } from 'framer-motion';
@@ -6,6 +7,9 @@ import { microCMSclient } from 'libs/microcms';
 const Works = ({ products }: any) => {
   return (
     <>
+      <Head>
+        <title>cupmen4800 - Works</title>
+      </Head>
       <motion.h1
         css={css`
           font-size: 2rem;
