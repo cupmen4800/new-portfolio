@@ -102,6 +102,11 @@ const Header = () => {
               <a css={navLinkStyle}>Resume</a>
             </Link>
           </li>
+          <li>
+            <Link href="/blog">
+              <a css={navLinkStyle}>Blog</a>
+            </Link>
+          </li>
         </ul>
       </nav>
       <div
@@ -166,6 +171,9 @@ const Header = () => {
             </Link>
             <Link href="/resume">
               <a css={drawerLink}>Resume</a>
+            </Link>
+            <Link href="/blog">
+              <a css={drawerLink}>Blog</a>
             </Link>
           </div>
         ) : (
