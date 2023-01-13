@@ -51,6 +51,7 @@ const Works = ({ products }: any) => {
               title={products.title}
               link={products.link}
               image={products.image.url}
+              width="35%"
             />
           )
         )}
