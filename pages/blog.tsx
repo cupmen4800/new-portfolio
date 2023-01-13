@@ -7,7 +7,9 @@ import { motion } from 'framer-motion';
 
 const client = buildClient();
 
-const Blog: NextPage = ({ products }: any) => {
+const Blog: NextPage = ({ articleData }: any) => {
+  // rss feed の内容が json として表示される
+  console.log(articleData);
   return (
     <>
       <Head>
@@ -35,32 +37,41 @@ const Blog: NextPage = ({ products }: any) => {
           margin-left: auto;
           margin-right: auto;
           display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
+          flex-direction: column;
           gap: 0.5rem;
+          margin-top: 25px;
+          margin-bottom: 25px;
+          width: 690px;
         `}
       >
-        {products.articleData.map(
+        {articleData.items.length === 0 && (
+          <h2
+            css={css`
+              font-size: 5rem;
+              font-family: futura-pt, sans-serif;
+              font-weight: 700;
+              font-style: italic;
+              text-align: center;
+              width: 100%;
+              display: inline-block;
+              margin-top: 50px;
+              margin-bottom: 50px;
+            `}
+          >
+            No Articles
+          </h2>
+        )}
+        {articleData.items.map(
           ({
-            sys,
-            fields,
+            title,
+            link,
+            pubData,
           }: {
-            sys: any;
-            fields: {
-              title: string;
-              contents: string;
-              sumnail: any;
-              slug: string;
-              category: string;
-              detail: string;
-            };
+            title: string;
+            link: string;
+            pubData: string;
           }) => (
-            <CardLink
-              key={sys.id}
-              title={fields.title}
-              link={`https://leeks.dev/article/${fields.slug}`}
-              image={fields.sumnail.fields.file.url}
-            />
+            <CardLink key={pubData} title={title} link={link} width="100%" />
           )
         )}
       </div>
@@ -72,12 +83,14 @@ export const getStaticProps = async () => {
   const data = await client.getEntries({
     content_type: 'article',
   });
+  const zennUrl = 'https://zenn.dev/cupmen4800/feed';
+  const daTa = await fetch(
+    `https://api.rss2json.com/v1/api.json?rss_url=${zennUrl}`
+  );
 
   return {
     props: {
-      products: {
-        articleData: data.items,
-      },
+      articleData: await daTa.json(),
     },
   };
 };
